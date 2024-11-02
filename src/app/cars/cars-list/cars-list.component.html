@@ -1,6 +1,6 @@
 <div class="row p-3">
   <div class="col-md-8">
-    <table class="table table-striped table-hover">
+    <table class="table table-hover">
       <thead class="table-dark">
         <tr>
           <th scope="col">#</th>
@@ -18,5 +18,8 @@
         </tr>
       </tbody>
     </table>
+    <div *ngFor="let brand of getBrandKeys()">
+      <div>Total {{ brand }}: {{ brandCounts[brand] }}</div>
+    </div>
   </div>
 </div>

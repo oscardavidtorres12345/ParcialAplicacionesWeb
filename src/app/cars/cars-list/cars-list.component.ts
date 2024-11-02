@@ -10,6 +10,7 @@ import { CarsService } from '../cars.service';
 export class CarsListComponent implements OnInit {
 
   cars: Array<Cars> = [];
+  brandCounts: { [key: string]: number } = {};
 
   constructor(private service: CarsService) { }
 
@@ -20,11 +21,30 @@ export class CarsListComponent implements OnInit {
   fetchCars(): void {
     this.service.getCars().subscribe((cars) => {
       this.getCars(cars);
+      this.countCarsByBrand();
     });
   }
 
   getCars(cars: Array<Cars>) {
     this.cars = cars;
+  }
+
+  countCarsByBrand(): void {
+    this.brandCounts = {}; // Reset counts
+
+    // Iterate over the cars array and count each brand
+    this.cars.forEach((car) => {
+      if (car.marca) {
+        if (!this.brandCounts[car.marca]) {
+          this.brandCounts[car.marca] = 0;
+        }
+        this.brandCounts[car.marca]++;
+      }
+    });
+  }
+
+  getBrandKeys(): Array<string> {
+    return Object.keys(this.brandCounts);
   }
 
 }
